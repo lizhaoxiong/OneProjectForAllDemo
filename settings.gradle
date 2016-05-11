@@ -1,1 +1,1 @@
-include ':mvc', ':mvp', ':mvvm'
+include ':mvc', ':mvp', ':mvvm', ':fresco'
