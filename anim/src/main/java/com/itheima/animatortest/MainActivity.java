@@ -19,19 +19,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     protected static final String TAG = "MainActivity";
-    View view = null;
+    ImageView view = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view = findViewById(R.id.view);
+        view = (ImageView) findViewById(R.id.view);
+        view.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/ship.png",MainActivity.this));
     }
 
     public void click(View v) {
@@ -44,7 +46,9 @@ public class MainActivity extends Activity {
         // animatorListener();
         //animatorInflater();
         // paowuxian(view);
+        //mutiObjectAnimator();
 
+        shipAnimatorSet();
     }
     /**
      * 抛物线
@@ -167,6 +171,7 @@ public class MainActivity extends Activity {
 //        AnimatorSet animatorSet = new AnimatorSet();
 //        animatorSet.play(bouncer).before(fadeAnim);
 //        animatorSet.start();
+
     }
 
     private void keyframe() {
@@ -189,32 +194,42 @@ public class MainActivity extends Activity {
 
     private void propertyValuesHolder() {
         // 获取view左边位置
-        int left = view.getLeft();
+        int left = -view.getWidth();
         // 获取view右边位置
-        int right = view.getRight();
+        int right = 0;
         // 获取view上边位置
-        int top = view.getTop();
+        int top = 100;
         // 获取view下边位置
-        int bottom = view.getBottom();
+        int bottom = top+view.getHeight();
         // 将view左边增加10像素
-        PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,left + 100);
+        PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,left + 1000);
         // 将view右边减少10像素
-        PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt("right",right, right + 100);
+        PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt("right",right, right + 1000);
         // 将view的上边。。。
-        PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt("top",top,top+100);
+        PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt("top",top,top+500);
         // 将view的下边。。。
-        PropertyValuesHolder pvhBottom = PropertyValuesHolder.ofInt("bottom",bottom,bottom+100);
+        PropertyValuesHolder pvhBottom = PropertyValuesHolder.ofInt("bottom",bottom,bottom+500);
         // 在X轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
-        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX",1f, 1f, 1f);
+        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX",.3f, .8f, 1f);
         // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
-        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",1f, 1f, 1f);
+        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",.3f, .8f, 1f);
         // 将PropertyValuesHolder交付给ObjectAnimator进行构建
         ObjectAnimator customAnim = ObjectAnimator.ofPropertyValuesHolder(view,
                 pvhLeft, pvhRight,pvhTop,pvhBottom,pvhScaleX, pvhScaleY);
         // 设置执行时间(1000ms)
-        customAnim.setDuration(1000);
+        customAnim.setDuration(15000);
         // 开始动画
         customAnim.start();
+
+        Toast.makeText(getApplicationContext(),customAnim.getCurrentPlayTime()+" ",Toast.LENGTH_SHORT).show();
+
+        if(customAnim.getCurrentPlayTime()==5000){
+            customAnim.cancel();
+        }
+        if(customAnim.getCurrentPlayTime()==10000){
+            customAnim.end();
+        }
+
     }
 
     private void valueAnimator() {
@@ -244,19 +259,19 @@ public class MainActivity extends Activity {
     private void objectAnimator() {
         // 通过静态方法构建一个ObjectAnimator对象
         // 设置作用对象、属性名称、数值集合
-        ObjectAnimator.ofFloat(view, "translationX", 0.0F, 1000.0F)
+        ObjectAnimator.ofFloat(view, "translationX", -500F, 1000.0F)
         // 设置执行时间(1000ms)
-                .setDuration(1000)
+                .setDuration(10000)
                 // 开始动画
                 .start();
 
         // 修改view的y属性, 从当前位置移动到300.0f
         ObjectAnimator yBouncer =
 
-        ObjectAnimator.ofFloat(view, "y",
-                view.getY(), 1000.0f);
+        ObjectAnimator.ofFloat(view, "translationY",
+                200F, 1000.0f);
 
-        yBouncer.setDuration(1500);
+        yBouncer.setDuration(10000);
         // 设置插值器(用于调节动画执行过程的速度)
         yBouncer.setInterpolator(new BounceInterpolator());
         // 设置重复次数(缺省为0,表示不重复执行)
@@ -268,4 +283,111 @@ public class MainActivity extends Activity {
         // 开始动画
         yBouncer.start();
     }
+
+
+    /**
+     * 一个动画能够让View既可以放大、又能够移动，ObjectAnimator实现
+     */
+    private void mutiObjectAnimator(){
+        ObjectAnimator anim = ObjectAnimator
+                .ofFloat(view, "zhy", 0.5F,  1.0F)
+                .setDuration(10000);
+                anim.start();
+
+        anim.addUpdateListener(new AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation)
+            {
+                float cVal = (Float) animation.getAnimatedValue();
+                view.setAlpha(cVal);
+                view.setScaleX(cVal);
+                view.setScaleY(cVal);
+
+                view.setTranslationX(cVal);
+                view.setTranslationX(cVal);
+            }
+        });
+    }
+
+    /**
+     * 轮船动画--前：移动放大10秒、中：上下8秒、后：前放到7秒
+     */
+
+    private void shipAnimatorSet(){
+        //*******前动画*********
+        // 获取view左边位置
+        int left = -view.getWidth()+30;
+        // 获取view右边位置
+        int right = 30;
+        // 获取view上边位置
+        int top = 100;
+        // 获取view下边位置
+        int bottom = top+view.getHeight();
+        // 将view左边增加10像素
+        PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,left + 1000);
+        // 将view右边减少10像素
+        PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt("right",right, right + 1000);
+        // 将view的上边。。。
+        PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt("top",top,top+500);
+        // 将view的下边。。。
+        PropertyValuesHolder pvhBottom = PropertyValuesHolder.ofInt("bottom",bottom,bottom+500);
+        // 在X轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
+        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX",.3f, 1f);
+        // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
+        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",.3f, 1f);
+        // 将PropertyValuesHolder交付给ObjectAnimator进行构建
+        ObjectAnimator anim1 = ObjectAnimator.ofPropertyValuesHolder(view,
+                pvhLeft, pvhRight,pvhTop,pvhBottom,pvhScaleX, pvhScaleY);
+        anim1.setDuration(7000);
+
+        //********中动画********
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(view, "translationY",
+                100);
+        // 设置插值器(用于调节动画执行过程的速度)
+        anim2.setInterpolator(new BounceInterpolator());
+        // 设置重复次数(缺省为0,表示不重复执行)
+        anim2.setRepeatCount(1);
+        // 设置重复模式(RESTART或REVERSE),重复次数大于0或INFINITE生效
+        anim2.setRepeatMode(ValueAnimator.REVERSE);
+        // 设置动画开始的延时时间(200ms)
+        anim2.setDuration(8000);
+
+        //*********后动画********
+        left = left+1000;
+        right = left+1000;
+        top = top+500;
+        bottom = bottom+500;
+        // 将view左边增加10像素
+        PropertyValuesHolder pvhLeft3 = PropertyValuesHolder.ofInt("left", left,left + 1500);
+        // 将view右边减少10像素
+        PropertyValuesHolder pvhRight3 = PropertyValuesHolder.ofInt("right",right, right + 1500);
+        // 将view的上边。。。
+        PropertyValuesHolder pvhTop3 = PropertyValuesHolder.ofInt("top",top,top+800);
+        // 将view的下边。。。
+        PropertyValuesHolder pvhBottom3 = PropertyValuesHolder.ofInt("bottom",bottom,bottom+800);
+        // 在X轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
+        PropertyValuesHolder pvhScaleX3 = PropertyValuesHolder.ofFloat("scaleX",1f, 1.5f);
+        // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
+        PropertyValuesHolder pvhScaleY3 = PropertyValuesHolder.ofFloat("scaleY",1f, 1.5f);
+        // 将PropertyValuesHolder交付给ObjectAnimator进行构建
+        ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(view,
+                pvhLeft3, pvhRight3,pvhTop3,pvhBottom3,pvhScaleX3, pvhScaleY3);
+        // 设置执行时间(1000ms)
+        anim3.setDuration(7000);
+
+
+        //********一起摇摆*******
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(anim1);
+        animSet.play(anim2).after(anim1);
+        animSet.play(anim3).after(anim2);
+        animSet.start();
+    }
+
+    /**
+     * 轮船前动画
+     */
+
+
 }
