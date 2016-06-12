@@ -13,6 +13,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PointF;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ public class MainActivity extends Activity {
     ImageView lang2 = null;
     ImageView lang3 = null;
     ImageView paopao;
+    AnimationDrawable paopaoAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +75,9 @@ public class MainActivity extends Activity {
     }
 
     private void paopaoDeVoice() {
-        Animator anim = AnimatorInflater
-                .loadAnimator(this, R.anim.paopao_list);
-        anim.setTarget(paopao);
-        anim.start();
+        paopao.setImageResource(R.drawable.paopao_list);
+        paopaoAnim = (AnimationDrawable) paopao.getDrawable();
+        paopaoAnim.start();
     }
 
     /**

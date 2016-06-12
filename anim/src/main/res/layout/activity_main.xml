@@ -49,7 +49,7 @@
             android:id="@+id/paopao"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background ="@anim/paopao_list"
+            android:background ="@drawable/paopao_list"
             android:layout_marginBottom="0dp"
             android:text="View"/>
     </FrameLayout>
