@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/qipao0" android:duration="100" />
+    <item android:drawable="@drawable/qipao2" android:duration="100" />
+    <item android:drawable="@drawable/qipao3" android:duration="100" />
+    <item android:drawable="@drawable/qipao4" android:duration="100" />
+    <item android:drawable="@drawable/qipao5" android:duration="100" />
+    <item android:drawable="@drawable/qipao6" android:duration="100" />
+    <item android:drawable="@drawable/qipao7" android:duration="100" />
+    <item android:drawable="@drawable/qipao8" android:duration="100" />
+    <item android:drawable="@drawable/qipao9" android:duration="100" />
+    <item android:drawable="@drawable/qipao10" android:duration="100" />
+    <item android:drawable="@drawable/qipao11" android:duration="100" />
+    <item android:drawable="@drawable/qipao12" android:duration="100" />
+</animation-list>

@@ -1,16 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" >
 
-    <Button 
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="startAnim"
         android:onClick="click"
         />
-    
+
     <ImageView
         android:id="@+id/view"
         android:layout_width="wrap_content"
@@ -18,4 +16,41 @@
         android:text="View"
     />
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+        <ImageView
+        android:id="@+id/lang3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dp"
+        android:text="View"/>
+
+        <ImageView
+            android:id="@+id/lang2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"
+            android:text="View"/>
+
+        <ImageView
+            android:id="@+id/lang1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="0dp"
+            android:text="View"/>
+
+        <ImageView
+            android:id="@+id/paopao"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background ="@anim/paopao_list"
+            android:layout_marginBottom="0dp"
+            android:text="View"/>
+    </FrameLayout>
+</FrameLayout>

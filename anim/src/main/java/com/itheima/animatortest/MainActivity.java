@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +27,10 @@ public class MainActivity extends Activity {
 
     protected static final String TAG = "MainActivity";
     ImageView view = null;
+    ImageView lang1 = null;
+    ImageView lang2 = null;
+    ImageView lang3 = null;
+    ImageView paopao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,20 @@ public class MainActivity extends Activity {
 
         view = (ImageView) findViewById(R.id.view);
         view.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/ship.png",MainActivity.this));
+
+
+        lang1 = (ImageView) findViewById(R.id.lang1);
+        lang2 = (ImageView) findViewById(R.id.lang2);
+        lang3 = (ImageView) findViewById(R.id.lang3);
+        lang1.setAlpha(.3f);
+        lang2.setAlpha(.3f);
+        lang3.setAlpha(.3f);
+        lang1.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang3.png",MainActivity.this));
+        lang2.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang2.png",MainActivity.this));
+        lang3.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang1.png",MainActivity.this));
+
+        paopao = (ImageView) findViewById(R.id.paopao);
+
     }
 
     public void click(View v) {
@@ -48,8 +67,44 @@ public class MainActivity extends Activity {
         // paowuxian(view);
         //mutiObjectAnimator();
 
-        shipAnimatorSet();
+        //shipAnimatorSet();
+        langDeVoice();
+        paopaoDeVoice();
     }
+
+    private void paopaoDeVoice() {
+        Animator anim = AnimatorInflater
+                .loadAnimator(this, R.anim.paopao_list);
+        anim.setTarget(paopao);
+        anim.start();
+    }
+
+    /**
+     * 海浪的位移动画
+     */
+    private void langDeVoice() {
+        lang1.setTranslationX(-lang1.getWidth());
+        lang2.setTranslationX(-lang1.getWidth());
+        lang3.setTranslationX(-lang1.getWidth());
+        // 1. 在回调中手动更新View对应属性：
+        AnimatorUpdateListener l = new AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // 当前的分度值范围为0.0f->1.0f
+                // 分度值是动画执行的百分比。区别于AnimatedValue。
+                float fraction = animation.getAnimatedFraction();
+                Toast.makeText(getApplicationContext(),fraction+" ",Toast.LENGTH_SHORT).show();
+                // X方向向右移动100px的距离.
+                lang1.setTranslationX(-fraction * lang1.getWidth());
+                lang2.setTranslationX(-fraction * lang1.getWidth());
+                lang3.setTranslationX(-fraction * lang1.getWidth());
+            }
+        };
+        ValueAnimator mAnim = ValueAnimator.ofFloat(0f);
+        mAnim.addUpdateListener(l);
+        mAnim.setDuration(25000);
+        mAnim.start();
+    }
+
     /**
      * 抛物线
      * @param view
