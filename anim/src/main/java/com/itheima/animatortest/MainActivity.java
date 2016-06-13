@@ -1,43 +1,55 @@
 package com.itheima.animatortest;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
-import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.PointF;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     protected static final String TAG = "MainActivity";
-    ImageView view = null;
-    ImageView lang1 = null;
-    ImageView lang2 = null;
-    ImageView lang3 = null;
+
+    /** 动画开始执行时间 */
+    private static final Long TIME_BOAT_STOP = 10000l;//轮船从开始到中途停止时间
+    private static final Long TIME_BOAT_UPDOWN = 8000l;//轮船停止时间
+    private static final Long TIME_BOAT_END = 7000l;//轮船停止到结束时间
+
+    /** 动画状态 */
+    private static final int STATE_BOAT_STOP = 0;//轮船停止状态
+    private static final int STATE_BOAT_GOON = 1;//轮船继续状态
+    private static final int STATE_BOAT_Leave = 2;//轮船结束状态
+
+    /** 轮船相关参数 */
+    ImageView ship_img = null;//轮船控件
+    private static final String SHIP_POSITION= "boat/ship.png";//轮船图片位置
+
+    /** 海浪相关参数 */
+    ImageView lang1 = null;//海浪一号图
+    ImageView lang2 = null;//海浪二号图
+    ImageView lang3 = null;//海浪三号图
+    private static final String[] lang_Position = //海浪图片位置
+            {"boat/lang1.png","boat/lang2.png","boat/lang3.png"};
+
+    /** 泡泡相关参数 */
     ImageView paopao;
     ImageView paopao2;
     ImageView paopao3;
     AnimationDrawable paopaoAnim;
     AnimationDrawable paopaoAnim2;
     AnimationDrawable paopaoAnim3;
-    ImageView fire;
-    AnimationDrawable fireAnim;
+
+    /** 烟花相关参数 */
+    ImageView fire_img;
+    AnimationDrawable fireAnim;//烟花动画
     private int[] meetPics = new int[]{
         R.drawable.fire01,R.drawable.fire02,R.drawable.fire03,R.drawable.fire04,
             R.drawable.fire05,R.drawable.fire06,R.drawable.fire07,R.drawable.fire08,
@@ -47,55 +59,124 @@ public class MainActivity extends Activity {
             R.drawable.fire21,R.drawable.fire22
     };
 
+    /** 船长头像相关参数 */
+    ImageView head =null;//头像控件
+    private static final String HEAD_POSITION= "boat/head.png";//头像图片位置
+    AnimationDrawable headAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+    }
 
-        view = (ImageView) findViewById(R.id.view);
-        view.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/ship.png",MainActivity.this));
+    /** 控制动画执行 */
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case STATE_BOAT_STOP:
+                    FireworksDeVoice();
+                    headDeVoice();
+                    break;
+                case STATE_BOAT_GOON:
 
+                    break;
+                case STATE_BOAT_Leave:
+                    //移除所有动画
+                    break;
+            }
+        };
+    };
 
+    private void init() {
+        /** 初始化轮船 */
+        ship_img = (ImageView) findViewById(R.id.view);
+        ship_img.setImageBitmap(GetAssetsUtils.getBitmapImage(SHIP_POSITION,MainActivity.this));
+
+        /** 初始化海浪 */
         lang1 = (ImageView) findViewById(R.id.lang1);
         lang2 = (ImageView) findViewById(R.id.lang2);
         lang3 = (ImageView) findViewById(R.id.lang3);
         lang1.setAlpha(.3f);
         lang2.setAlpha(.3f);
         lang3.setAlpha(.1f);
-        lang1.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang1.png",MainActivity.this));
-        lang2.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang2.png",MainActivity.this));
-        lang3.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang3.png",MainActivity.this));
+        lang1.setImageBitmap(GetAssetsUtils.getBitmapImage(lang_Position[0],MainActivity.this));
+        lang2.setImageBitmap(GetAssetsUtils.getBitmapImage(lang_Position[1],MainActivity.this));
+        lang3.setImageBitmap(GetAssetsUtils.getBitmapImage(lang_Position[2],MainActivity.this));
 
+        /** 初始化泡泡 */
         paopao = (ImageView) findViewById(R.id.paopao);
         paopao2 = (ImageView) findViewById(R.id.paopao2);
         paopao3 = (ImageView) findViewById(R.id.paopao3);
 
-        fire = (ImageView) findViewById(R.id.fire);
+        /** 初始化烟花 */
+        fire_img = (ImageView) findViewById(R.id.fire);
+
+        /** 初始化头像 */
+        head = (ImageView) findViewById(R.id.head);
+        head.setImageBitmap(GetAssetsUtils.getBitmapImage(HEAD_POSITION,MainActivity.this));
 
     }
 
     public void click(View v) {
-        // objectAnimator();
-        // valueAnimator();
-        // propertyValuesHolder();
-        // keyframe();
-        // animatorSet();
-        // animatorUpdateListener();
-        // animatorListener();
-        //animatorInflater();
-        // paowuxian(view);
-        //mutiObjectAnimator();
-
-        //shipAnimatorSet();
+        shipAnimatorSet();
         langDeVoice();
-        //paopaoDeVoice();
-        //FireworksDeVoice();
+        paopaoDeVoice();
+        mHandler.sendEmptyMessageDelayed(STATE_BOAT_STOP,TIME_BOAT_STOP);
     }
 
+    /**
+     * 头像动画--渐变升上移，停顿，渐变浅上移
+     */
+    private void headDeVoice(){
+        int top = 800;
+        int bottom = top+head.getHeight();
+        PropertyValuesHolder pvhAlpha1 = PropertyValuesHolder.ofFloat("alpha",.0f, .4f, 1f);
+        PropertyValuesHolder pvhTop1 = PropertyValuesHolder.ofInt("top",top,top-200);
+        PropertyValuesHolder pvhBottom1 = PropertyValuesHolder.ofInt("bottom",bottom,bottom-200);
+        ObjectAnimator headAnim1 = ObjectAnimator.ofPropertyValuesHolder(head,pvhAlpha1,pvhTop1,pvhBottom1);
+        headAnim1.setDuration(3000);
+
+
+        //5秒的无动画
+        PropertyValuesHolder noAnim = PropertyValuesHolder.ofFloat("alpha");
+        ObjectAnimator headAnim0 = ObjectAnimator.ofPropertyValuesHolder(head,noAnim);
+        headAnim0.setDuration(3000);
+
+        top = head.getTop();
+        bottom = head.getBottom();
+        PropertyValuesHolder pvhAlpha2 = PropertyValuesHolder.ofFloat("alpha",1f, .4f, .0f);
+        PropertyValuesHolder pvhTop2 = PropertyValuesHolder.ofInt("top",top,top-200);
+        PropertyValuesHolder pvhBottom2 = PropertyValuesHolder.ofInt("bottom",bottom,bottom-200);
+        ObjectAnimator headAnim2 = ObjectAnimator.ofPropertyValuesHolder(head,pvhAlpha2,pvhTop2,pvhBottom2);
+        headAnim2.setDuration(3000);
+
+        //********一起摇摆*******
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(headAnim1);
+        animSet.play(headAnim2).after(headAnim1);
+        animSet.start();
+
+        animSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mHandler.sendEmptyMessage(STATE_BOAT_GOON);
+            }
+        });
+    }
+
+    /**
+     * 烟花动画--分布式加载帧动画
+     */
     private void FireworksDeVoice() {
-        SceneAnimation anim = new SceneAnimation(fire, meetPics, 10);
+        SceneAnimation anim = new SceneAnimation(fire_img, meetPics, 10);
     }
 
+    /**
+     * 气泡动画--平分三个区域，从下到上的帧动画
+     */
     private void paopaoDeVoice() {
         paopao.setImageResource(R.drawable.paopao_list);
         paopaoAnim = (AnimationDrawable) paopao.getDrawable();
@@ -111,7 +192,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 海浪的位移动画
+     * 海浪的动画--第三张渐变、第一张平移左到右、第二张平移右到左
      */
     private void langDeVoice() {
 
@@ -133,279 +214,19 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * 抛物线
-     * @param view
-     */
-    public void paowuxian(final View view) {
-        
-        // 类型估值 - 抛物线示例
-        TypeEvaluator<PointF> typeEvaluator = new TypeEvaluator<PointF>() {
-            @Override
-            public PointF evaluate(float fraction, PointF startValue,
-                    PointF endValue) {
-                float time = fraction * 3;
-                Toast.makeText(getApplicationContext(),time+" ",Toast.LENGTH_SHORT).show();
-                // x方向200px/s ，y方向0.5 * 200 * t * t
-                PointF point = new PointF();
-                point.x = 200 * time+300;
-                point.y = 0.5f * 200 * time * time;
-                return point;
-            }
-        };
-        ValueAnimator valueAnimator = ValueAnimator.ofObject(typeEvaluator,
-                new PointF(0, 0));
-        valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(1000);
-        valueAnimator.start();
-        
-        valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                PointF point = (PointF) animation.getAnimatedValue();
-                view.setX(point.x);
-                view.setY(point.y);
-            }
-        });
-    }
-
-    private void animatorInflater() {
-        // 加载xml属性动画
-        Animator anim = AnimatorInflater
-                .loadAnimator(this, R.anim.animator_set);
-        anim.setTarget(view);
-        anim.start();
-    }
-
-    private void animatorListener() {
-        // 将view透明度从当前的1.0f更新为0.5f,在动画结束时移除该View
-        ObjectAnimator anim = ObjectAnimator.ofFloat(view, "alpha", 0.5f);
-        anim.setDuration(1000);
-        anim.addListener(new AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Log.e(TAG, "onAnimationEnd");
-                ViewGroup parent = (ViewGroup) view.getParent();
-                if (parent != null)
-                    parent.removeView(view);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-        });
-        anim.start();
-    }
-
-    private void animatorUpdateListener() {
-        // 1. 在回调中手动更新View对应属性：
-        AnimatorUpdateListener l = new AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                // 当前的分度值范围为0.0f->1.0f
-                // 分度值是动画执行的百分比。区别于AnimatedValue。
-                float fraction = animation.getAnimatedFraction();
-                Toast.makeText(getApplicationContext(),fraction+" ",Toast.LENGTH_SHORT).show();
-                // 以下的的效果为 View从完全透明到不透明,
-                view.setAlpha(fraction);
-                // Y方向向下移动300px的距离.
-                view.setTranslationY(fraction * 300.0f);
-            }
-        };
-        ValueAnimator mAnim = ValueAnimator.ofFloat(0f);
-        mAnim.addUpdateListener(l);
-        mAnim.setDuration(1000);
-        mAnim.start();
-    }
-
-    // 2. 在自定义View内部用于引发重绘
-    public class MyAnimationView extends View implements
-            ValueAnimator.AnimatorUpdateListener {
-
-        public MyAnimationView(Context context) {
-            super(context);
-        }
-
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            // 手动触发界面重绘
-            invalidate();
-        }
-
-    }
-
-    private void animatorSet() {
-//         AnimatorSet bouncer = new AnimatorSet();
-//        bouncer.play(bounceAnim).before(squashAnim1);
-//        bouncer.play(squashAnim1).with(squashAnim2);
-//        bouncer.play(squashAnim1).with(stretchAnim1);
-//        bouncer.play(squashAnim1).with(stretchAnim2);
-//        bouncer.play(bounceBackAnim).after(stretchAnim2);
-//        ValueAnimator fadeAnim = ObjectAnimator.ofFloat(newBall, "alpha", 1f,
-//                0f);
-//        fadeAnim.setDuration(250);
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.play(bouncer).before(fadeAnim);
-//        animatorSet.start();
-
-    }
-
-    private void keyframe() {
-        // 设置在动画开始时,旋转角度为0度
-        Keyframe kf0 = Keyframe.ofFloat(0f, 0f);
-        // 设置在动画执行50%时,旋转角度为360度
-        Keyframe kf1 = Keyframe.ofFloat(.5f, 360f);
-        // 设置在动画结束时,旋转角度为0度
-        Keyframe kf2 = Keyframe.ofFloat(0f, 0f);
-        // 使用PropertyValuesHolder进行属性名称和值集合的封装
-        PropertyValuesHolder pvhRotation = PropertyValuesHolder.ofKeyframe(
-                "rotation", kf0, kf1, kf2);
-        // 通过ObjectAnimator进行执行
-        ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation)
-        // 设置执行时间(1000ms)
-                .setDuration(1000)
-                // 开始动画
-                .start();
-    }
-
-    private void propertyValuesHolder() {
-        // 获取view左边位置
-        int left = -view.getWidth();
-        // 获取view右边位置
-        int right = 0;
-        // 获取view上边位置
-        int top = 100;
-        // 获取view下边位置
-        int bottom = top+view.getHeight();
-        // 将view左边增加10像素
-        PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,left + 1000);
-        // 将view右边减少10像素
-        PropertyValuesHolder pvhRight = PropertyValuesHolder.ofInt("right",right, right + 1000);
-        // 将view的上边。。。
-        PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt("top",top,top+500);
-        // 将view的下边。。。
-        PropertyValuesHolder pvhBottom = PropertyValuesHolder.ofInt("bottom",bottom,bottom+500);
-        // 在X轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
-        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX",.3f, .8f, 1f);
-        // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
-        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",.3f, .8f, 1f);
-        // 将PropertyValuesHolder交付给ObjectAnimator进行构建
-        ObjectAnimator customAnim = ObjectAnimator.ofPropertyValuesHolder(view,
-                pvhLeft, pvhRight,pvhTop,pvhBottom,pvhScaleX, pvhScaleY);
-        // 设置执行时间(1000ms)
-        customAnim.setDuration(15000);
-        // 开始动画
-        customAnim.start();
-
-        Toast.makeText(getApplicationContext(),customAnim.getCurrentPlayTime()+" ",Toast.LENGTH_SHORT).show();
-
-        if(customAnim.getCurrentPlayTime()==5000){
-            customAnim.cancel();
-        }
-        if(customAnim.getCurrentPlayTime()==10000){
-            customAnim.end();
-        }
-
-    }
-
-    private void valueAnimator() {
-        // 通过静态方法构建一个ValueAnimator对象
-        // 设置数值集合
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1000.0f);
-        // 设置作用对象
-        animator.setTarget(view);
-        // 设置执行时间(1000ms)
-        animator.setDuration(1000);
-        // 添加动画更新监听
-        animator.addUpdateListener(new AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                // 获取当前值
-                Float mValue = (Float) animation.getAnimatedValue();
-                // 设置横向偏移量
-                view.setTranslationX(mValue);
-                // 设置纵向偏移量
-                view.setTranslationY(mValue);
-            }
-        });
-        // 开始动画
-        animator.start();
-    }
-
-    private void objectAnimator() {
-        // 通过静态方法构建一个ObjectAnimator对象
-        // 设置作用对象、属性名称、数值集合
-        ObjectAnimator.ofFloat(view, "translationX", -500F, 1000.0F)
-        // 设置执行时间(1000ms)
-                .setDuration(10000)
-                // 开始动画
-                .start();
-
-        // 修改view的y属性, 从当前位置移动到300.0f
-        ObjectAnimator yBouncer =
-
-        ObjectAnimator.ofFloat(view, "translationY",
-                200F, 1000.0f);
-
-        yBouncer.setDuration(10000);
-        // 设置插值器(用于调节动画执行过程的速度)
-        yBouncer.setInterpolator(new BounceInterpolator());
-        // 设置重复次数(缺省为0,表示不重复执行)
-        yBouncer.setRepeatCount(1);
-        // 设置重复模式(RESTART或REVERSE),重复次数大于0或INFINITE生效
-        yBouncer.setRepeatMode(ValueAnimator.REVERSE);
-        // 设置动画开始的延时时间(200ms)
-        yBouncer.setStartDelay(200);
-        // 开始动画
-        yBouncer.start();
-    }
-
-
-    /**
-     * 一个动画能够让View既可以放大、又能够移动，ObjectAnimator实现
-     */
-    private void mutiObjectAnimator(){
-        ObjectAnimator anim = ObjectAnimator
-                .ofFloat(view, "zhy", 0.5F,  1.0F)
-                .setDuration(10000);
-                anim.start();
-
-        anim.addUpdateListener(new AnimatorUpdateListener()
-        {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation)
-            {
-                float cVal = (Float) animation.getAnimatedValue();
-                view.setAlpha(cVal);
-                view.setScaleX(cVal);
-                view.setScaleY(cVal);
-
-                view.setTranslationX(cVal);
-                view.setTranslationX(cVal);
-            }
-        });
-    }
-
-    /**
      * 轮船动画--前：移动放大10秒、中：上下8秒、后：前放到7秒
      */
     private void shipAnimatorSet(){
 
         //*******前动画*********
         // 获取view左边位置
-        int left = -view.getWidth()+30;
+        int left = -ship_img.getWidth()+30;
         // 获取view右边位置
         int right = 30;
         // 获取view上边位置
         int top = 100;
         // 获取view下边位置
-        int bottom = top+view.getHeight();
+        int bottom = top+ship_img.getHeight();
         // 将view左边增加10像素
         PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left", left,left + 1000);
         // 将view右边减少10像素
@@ -419,12 +240,12 @@ public class MainActivity extends Activity {
         // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
         PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY",.3f, 1f);
         // 将PropertyValuesHolder交付给ObjectAnimator进行构建
-        ObjectAnimator anim1 = ObjectAnimator.ofPropertyValuesHolder(view,
+        ObjectAnimator anim1 = ObjectAnimator.ofPropertyValuesHolder(ship_img,
                 pvhLeft, pvhRight,pvhTop,pvhBottom,pvhScaleX, pvhScaleY);
-        anim1.setDuration(7000);
+        anim1.setDuration(STATE_BOAT_STOP);
 
         //********中动画********
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(view, "translationY",
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(ship_img, "translationY",
                 100);
         // 设置插值器(用于调节动画执行过程的速度)
         anim2.setInterpolator(new BounceInterpolator());
@@ -432,8 +253,7 @@ public class MainActivity extends Activity {
         anim2.setRepeatCount(1);
         // 设置重复模式(RESTART或REVERSE),重复次数大于0或INFINITE生效
         anim2.setRepeatMode(ValueAnimator.REVERSE);
-        // 设置动画开始的延时时间(200ms)
-        anim2.setDuration(8000);
+        anim2.setDuration(TIME_BOAT_UPDOWN);
 
         //*********后动画********
         left = left+1000;
@@ -453,10 +273,9 @@ public class MainActivity extends Activity {
         // 在Y轴缩放从原始比例1f,缩小到最小0f,再放大到原始比例1f
         PropertyValuesHolder pvhScaleY3 = PropertyValuesHolder.ofFloat("scaleY",1f, 1.5f);
         // 将PropertyValuesHolder交付给ObjectAnimator进行构建
-        ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(view,
+        ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(ship_img,
                 pvhLeft3, pvhRight3,pvhTop3,pvhBottom3,pvhScaleX3, pvhScaleY3);
-        // 设置执行时间(1000ms)
-        anim3.setDuration(7000);
+        anim3.setDuration(TIME_BOAT_END);
 
 
         //********一起摇摆*******
@@ -466,10 +285,4 @@ public class MainActivity extends Activity {
         animSet.play(anim3).after(anim2);
         animSet.start();
     }
-
-    /**
-     * 轮船前动画
-     */
-
-
 }
