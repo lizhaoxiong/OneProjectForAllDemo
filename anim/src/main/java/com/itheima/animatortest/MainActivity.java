@@ -10,7 +10,9 @@ import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 
@@ -162,6 +164,10 @@ public class MainActivity extends Activity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                Log.e(TAG, "onAnimationEnd");
+                ViewGroup parent = (ViewGroup) head.getParent();
+                if (parent != null)
+                    parent.removeView(head);
                 mHandler.sendEmptyMessage(STATE_BOAT_GOON);
             }
         });
