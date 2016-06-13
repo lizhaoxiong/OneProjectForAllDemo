@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,7 +31,21 @@ public class MainActivity extends Activity {
     ImageView lang2 = null;
     ImageView lang3 = null;
     ImageView paopao;
+    ImageView paopao2;
+    ImageView paopao3;
     AnimationDrawable paopaoAnim;
+    AnimationDrawable paopaoAnim2;
+    AnimationDrawable paopaoAnim3;
+    ImageView fire;
+    AnimationDrawable fireAnim;
+    private int[] meetPics = new int[]{
+        R.drawable.fire01,R.drawable.fire02,R.drawable.fire03,R.drawable.fire04,
+            R.drawable.fire05,R.drawable.fire06,R.drawable.fire07,R.drawable.fire08,
+            R.drawable.fire09,R.drawable.fire10,R.drawable.fire11,R.drawable.fire12,
+            R.drawable.fire13,R.drawable.fire14,R.drawable.fire15,R.drawable.fire16,
+            R.drawable.fire17,R.drawable.fire18,R.drawable.fire19,R.drawable.fire20,
+            R.drawable.fire21,R.drawable.fire22
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +61,16 @@ public class MainActivity extends Activity {
         lang3 = (ImageView) findViewById(R.id.lang3);
         lang1.setAlpha(.3f);
         lang2.setAlpha(.3f);
-        lang3.setAlpha(.3f);
-        lang1.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang3.png",MainActivity.this));
+        lang3.setAlpha(.1f);
+        lang1.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang1.png",MainActivity.this));
         lang2.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang2.png",MainActivity.this));
-        lang3.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang1.png",MainActivity.this));
+        lang3.setImageBitmap(GetAssetsUtils.getBitmapImage("boat/lang3.png",MainActivity.this));
 
         paopao = (ImageView) findViewById(R.id.paopao);
+        paopao2 = (ImageView) findViewById(R.id.paopao2);
+        paopao3 = (ImageView) findViewById(R.id.paopao3);
+
+        fire = (ImageView) findViewById(R.id.fire);
 
     }
 
@@ -71,39 +88,48 @@ public class MainActivity extends Activity {
 
         //shipAnimatorSet();
         langDeVoice();
-        paopaoDeVoice();
+        //paopaoDeVoice();
+        //FireworksDeVoice();
+    }
+
+    private void FireworksDeVoice() {
+        SceneAnimation anim = new SceneAnimation(fire, meetPics, 10);
     }
 
     private void paopaoDeVoice() {
         paopao.setImageResource(R.drawable.paopao_list);
         paopaoAnim = (AnimationDrawable) paopao.getDrawable();
         paopaoAnim.start();
+
+        paopao2.setImageResource(R.drawable.paopao_list);
+        paopaoAnim2 = (AnimationDrawable) paopao2.getDrawable();
+        paopaoAnim2.start();
+
+        paopao3.setImageResource(R.drawable.paopao_list);
+        paopaoAnim3= (AnimationDrawable) paopao3.getDrawable();
+        paopaoAnim3.start();
     }
 
     /**
      * 海浪的位移动画
      */
     private void langDeVoice() {
-        lang1.setTranslationX(-lang1.getWidth());
-        lang2.setTranslationX(-lang1.getWidth());
-        lang3.setTranslationX(-lang1.getWidth());
-        // 1. 在回调中手动更新View对应属性：
-        AnimatorUpdateListener l = new AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                // 当前的分度值范围为0.0f->1.0f
-                // 分度值是动画执行的百分比。区别于AnimatedValue。
-                float fraction = animation.getAnimatedFraction();
-                Toast.makeText(getApplicationContext(),fraction+" ",Toast.LENGTH_SHORT).show();
-                // X方向向右移动100px的距离.
-                lang1.setTranslationX(-fraction * lang1.getWidth());
-                lang2.setTranslationX(-fraction * lang1.getWidth());
-                lang3.setTranslationX(-fraction * lang1.getWidth());
-            }
-        };
-        ValueAnimator mAnim = ValueAnimator.ofFloat(0f);
-        mAnim.addUpdateListener(l);
-        mAnim.setDuration(25000);
-        mAnim.start();
+
+        PropertyValuesHolder pvhAlpha = PropertyValuesHolder.ofFloat("alpha",.2f, .4f, .2f);
+        ObjectAnimator langAnim3 = ObjectAnimator.ofPropertyValuesHolder(lang3,pvhAlpha);
+        langAnim3.setDuration(10000);
+        langAnim3.start();
+
+        PropertyValuesHolder pvhTransXLeft = PropertyValuesHolder.ofFloat("translationX",400);
+        ObjectAnimator langAnim2 = ObjectAnimator.ofPropertyValuesHolder(lang2,pvhTransXLeft);
+        langAnim2.setDuration(10000);
+        langAnim2.start();
+
+        PropertyValuesHolder pvhTransXRight = PropertyValuesHolder.ofFloat("translationX",-400);
+        ObjectAnimator langAnim1 = ObjectAnimator.ofPropertyValuesHolder(lang1,pvhTransXRight);
+        langAnim1.setDuration(10000);
+        langAnim1.start();
+
     }
 
     /**
@@ -369,8 +395,8 @@ public class MainActivity extends Activity {
     /**
      * 轮船动画--前：移动放大10秒、中：上下8秒、后：前放到7秒
      */
-
     private void shipAnimatorSet(){
+
         //*******前动画*********
         // 获取view左边位置
         int left = -view.getWidth()+30;
