@@ -47,6 +47,7 @@ public class JufanBoatView extends RelativeLayout {
     private static final int TIME_LANG_LEFT = 15000;//最下层浪花时间
 
     private static final int TIME_FIRE_SPEED = 10;//烟花幀频率
+    private static final long TIME_FIRE_DELAY = 2000;//烟花延迟发射时间
 
     /**
      * 动画状态
@@ -107,7 +108,6 @@ public class JufanBoatView extends RelativeLayout {
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View anim = mInflater.inflate(R.layout.anim, null);
         this.addView(anim);
-
         init();
     }
 
@@ -134,18 +134,6 @@ public class JufanBoatView extends RelativeLayout {
             }
         }
     };
-
-    @Override
-    public void setLayoutParams(android.view.ViewGroup.LayoutParams params) {
-        params.width = LayoutParams.MATCH_PARENT;
-        params.height = LayoutParams.MATCH_PARENT;
-        super.setLayoutParams(params);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
 
     private void init() {
 
@@ -185,16 +173,16 @@ public class JufanBoatView extends RelativeLayout {
         int top = head.getTop();
         int bottom = head.getBottom();
         PropertyValuesHolder pvhAlpha1 = PropertyValuesHolder.ofFloat("alpha", .0f, .4f, 1f);
-        PropertyValuesHolder pvhTop1 = PropertyValuesHolder.ofInt("top", top, top - 400);
-        PropertyValuesHolder pvhBottom1 = PropertyValuesHolder.ofInt("bottom", bottom, bottom - 400);
+        PropertyValuesHolder pvhTop1 = PropertyValuesHolder.ofInt("top", top, top - 600);
+        PropertyValuesHolder pvhBottom1 = PropertyValuesHolder.ofInt("bottom", bottom, bottom - 600);
         ObjectAnimator headAnim1 = ObjectAnimator.ofPropertyValuesHolder(head, pvhAlpha1, pvhTop1, pvhBottom1);
         headAnim1.setDuration(TIME_HEAD_START);
 
-        top = head.getTop() - 400;
-        bottom = head.getBottom() - 400;
+        top = top - 600;
+        bottom = bottom - 600;
         PropertyValuesHolder pvhAlpha2 = PropertyValuesHolder.ofFloat("alpha", 1f, .4f, .0f);
-        PropertyValuesHolder pvhTop2 = PropertyValuesHolder.ofInt("top", top, top - 400);
-        PropertyValuesHolder pvhBottom2 = PropertyValuesHolder.ofInt("bottom", bottom, bottom - 400);
+        PropertyValuesHolder pvhTop2 = PropertyValuesHolder.ofInt("top", top, top - 600);
+        PropertyValuesHolder pvhBottom2 = PropertyValuesHolder.ofInt("bottom", bottom, bottom - 600);
         ObjectAnimator headAnim2 = ObjectAnimator.ofPropertyValuesHolder(head, pvhAlpha2, pvhTop2, pvhBottom2);
         headAnim2.setDuration(TIME_HEAD_END);
 
@@ -225,7 +213,7 @@ public class JufanBoatView extends RelativeLayout {
      * 烟花动画--分布式加载帧动画
      */
     private void FireworksDeVoice() {
-        SceneAnimation anim = new SceneAnimation(fire_img, meetPics, TIME_FIRE_SPEED);
+        SceneAnimation anim = new SceneAnimation(fire_img, meetPics, TIME_FIRE_SPEED,TIME_FIRE_DELAY);
     }
 
     /**
@@ -297,6 +285,7 @@ public class JufanBoatView extends RelativeLayout {
                 pvhLeft, pvhRight, pvhTop, pvhBottom, pvhScaleX, pvhScaleY);
         anim1.setDuration(TIME_BOAT_STOP);
 
+
         /********中动画********/
 //        ObjectAnimator anim2 = ObjectAnimator.ofFloat(ship_img, "translationY",
 //                100);
@@ -346,31 +335,27 @@ public class JufanBoatView extends RelativeLayout {
         ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(ship_img,
                 pvhLeft3, pvhRight3, pvhTop3, pvhBottom3, pvhScaleX3, pvhScaleY3);
         anim3.setDuration(TIME_BOAT_END);
-
+        ship_img.animate().translationX(0).withLayer();
 
         /********一起摇摆*******/
         AnimatorSet animSet = new AnimatorSet();
         animSet.play(anim1);
         animSet.play(anim2).after(anim1);
         animSet.play(anim3).after(anim2);
-        animSet.start();
-
-        langDeVoice();
-        paopaoDeVoice();
-        mHandler.sendEmptyMessageDelayed(STATE_BOAT_STOP, TIME_BOAT_STOP);
 
         animSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                //--为什么不执行？
-//                langDeVoice();
-//                paopaoDeVoice();
-//                mHandler.sendEmptyMessageDelayed(STATE_BOAT_STOP, TIME_BOAT_STOP);
+                ship_img.setLayerType(View.LAYER_TYPE_HARDWARE,null);
+                langDeVoice();
+                paopaoDeVoice();
+                mHandler.sendEmptyMessageDelayed(STATE_BOAT_STOP, TIME_BOAT_STOP);
 
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                ship_img.setLayerType(View.LAYER_TYPE_NONE,null);
 //                ViewGroup parent = (ViewGroup) head.getParent();
 //                if (parent != null)
 //                    parent.removeView(head);
@@ -404,6 +389,12 @@ public class JufanBoatView extends RelativeLayout {
 
             }
         });
+        animSet.start();
+
+//        langDeVoice();
+//        paopaoDeVoice();
+//        mHandler.sendEmptyMessageDelayed(STATE_BOAT_STOP, TIME_BOAT_STOP);
+
     }
 
 
