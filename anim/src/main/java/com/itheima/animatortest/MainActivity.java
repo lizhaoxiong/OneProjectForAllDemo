@@ -3,10 +3,14 @@ package com.itheima.animatortest;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.widget.ViewAnimator;
 
 public class MainActivity extends Activity {
     JufanBoatView boatView;
@@ -16,6 +20,24 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rl = (RelativeLayout)findViewById(R.id.rl);
+
+        new ViewGroup(this){
+
+            @Override
+            protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+            }
+        };
+
+
+        View view = new View(this);
+
+        ViewGroup group =(ViewGroup) view.getParent();
+        ViewParent parent = (ViewParent) view.getParent();
+
+
+        Toast.makeText(this,"你好",Toast.LENGTH_SHORT).show();
+
 
     }
     public void click(View v) {
