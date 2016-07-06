@@ -1,1 +1,1 @@
-include ':mvc', ':mvp', ':mvvm', ':fresco', ':anim', ':ui'
+include ':mvc', ':mvp', ':mvvm', ':fresco', ':anim', ':ui', ':design'

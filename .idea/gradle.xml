@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/anim" />
+            <option value="$PROJECT_DIR$/design" />
             <option value="$PROJECT_DIR$/fresco" />
             <option value="$PROJECT_DIR$/mvc" />
             <option value="$PROJECT_DIR$/mvp" />
@@ -21,6 +22,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/anim" />
+            <option value="$PROJECT_DIR$/design" />
             <option value="$PROJECT_DIR$/fresco" />
             <option value="$PROJECT_DIR$/mvc" />
             <option value="$PROJECT_DIR$/mvp" />

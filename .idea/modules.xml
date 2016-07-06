@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OneProjectForAllDemo.iml" filepath="$PROJECT_DIR$/OneProjectForAllDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/anim/anim.iml" filepath="$PROJECT_DIR$/anim/anim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/design/design.iml" filepath="$PROJECT_DIR$/design/design.iml" />
       <module fileurl="file://$PROJECT_DIR$/fresco/fresco.iml" filepath="$PROJECT_DIR$/fresco/fresco.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvc/mvc.iml" filepath="$PROJECT_DIR$/mvc/mvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
