@@ -8,8 +8,12 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/my_image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        fresco:viewAspectRatio="0.33"
+        android:layout_height="wrap_content"
+        fresco:viewAspectRatio="1"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:roundedCornerRadius="15dp"
+        fresco:placeholderImageScaleType="centerCrop"
         fresco:placeholderImage = "@drawable/li_bg_personal_head"
+
     />
 </LinearLayout>
