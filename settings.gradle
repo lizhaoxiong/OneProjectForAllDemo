@@ -1,1 +1,2 @@
-include ':mvc', ':mvp', ':mvvm', ':fresco', ':anim', ':ui', ':design'
+include ':mvc', ':mvp', ':mvvm', ':image', ':DiyView', ':ui', ':design', ':utils', ':test', ':rxjava'
+

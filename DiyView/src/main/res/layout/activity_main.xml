@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/rl">
+    <Button
+        android:id="@+id/bt_flight_seat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="flight_seat" />
+
+    <Button
+        android:id="@+id/bt_draw_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="draw_graph" />
+
+    <Button
+        android:id="@+id/bt_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="bt_thumb" />
+
+    <Button
+        android:id="@+id/bt_boat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="轮船动画" />
+
+    <Button
+        android:id="@+id/bt_img1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="未知图片测试" />
+
+    <Button
+        android:id="@+id/bt_img2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="微博登陆测试" />
+</LinearLayout>

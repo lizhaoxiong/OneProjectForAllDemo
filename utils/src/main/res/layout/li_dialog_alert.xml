@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical"
+        android:paddingBottom="0dip">
+
+        <LinearLayout
+            android:id="@+id/layout_alert_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/li_bg_alert_dialog"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/li_dialog_default_text"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="18dp"
+
+                android:textColor="#696969"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/view_alert_mid"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dip"
+            android:orientation="horizontal">
+
+            <com.guagua.live.lib.widget.ui.GButton
+                android:id="@id/li_button_cancel"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/li_btn_alert_dialog_left_selector"
+                android:text="@string/li_btn_cancel"
+                android:textColor="#f74e12"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/button_middle_view"
+                android:layout_width="1px"
+                android:layout_height="35dp"
+                android:background="#e0e0e0" />
+
+            <com.guagua.live.lib.widget.ui.GButton
+                android:id="@id/li_button_ok"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/li_btn_alert_dialog_right_selector"
+                android:text="@string/li_btn_ok"
+                android:textColor="#f74e12"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bottom_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:gravity="center"
+        android:textColor="#ff0000"
+        android:textSize="10sp" />
+
+</FrameLayout>

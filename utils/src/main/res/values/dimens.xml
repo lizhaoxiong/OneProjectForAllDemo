@@ -1,0 +1,6 @@
+<resources>
+	<dimen name="li_title_view_height">50dip</dimen>
+    <!-- super toast -->
+    <dimen name="li_toast_hover">64dp</dimen>
+    <dimen name="li_bottom_menu_item_divider">8dip</dimen>
+</resources>

@@ -1,0 +1,95 @@
+着迷面试：
+直播通信相关
+1.如何自定义Socket流
+2.客户端和服务器端整体架构
+
+
+迅雷面试：
+java 基础
+1.如何判断两个对象是否相等，equls和==区别
+^2.float 和 double区别，给个小数数0.3463到底是Float、Double、float、double
+3.创建对象一定要构造函数吗？还有其他方法吗？
+    ->对象创建的几种方法:
+      1.使用new关键字 (需要构造)
+      2.使用clone方法 （不需要构造）
+      3.反射机制 （需要构造）
+      4.反序列化 （不需要构造）
+4.java中有几种锁
+Android基础
+^1.手势分发中如果最底层的view已经响应事件，还能不能够move中执行其他事件
+2.Activity和Service通讯的几种方式（跨进程通讯的方式）
+    ->Activity、ContentProvider、Broadcast和AIDL Service
+^3.ContentProvider的uri的写法
+4.Activity和fragment的区别？fragment里面add和replace区别？fragment回退栈？
+    ->
+    ->replace 是先remove掉相同id的所有fragment，然后在add当前的这个fragment,返回键的时候，这个跟事务有关，跟使用add还是replace没有任何关系。
+      replace会重新走声明周期，浪费资源并且重复加载数据，一般用add 加hide和show方式，自定义回退栈
+    ->
+5.Activity的四种启动模式测试，如果在Task模式，ABC 此时C点击跳转到C,问现在栈是什么样的。OK
+源码原理相关
+1.EventBus中的ThreadLocal
+2.git使用，如果我仅仅是将分支下某个commit合并到主分支，命令
+3.项目中哪些地方用到了多线程，线程池的设计，java有几种锁
+4.MAT原理
+5.Volley原理
+6.Handler原理，如何保证Looper唯一性
+7.https原理
+工作相关
+1.如果上级交代一个你不熟悉的任务，你该如何怎么处理
+2.课余时间，你是如何学习的
+
+新浪微博面试：
+java基础：
+1.ArrayList和Vector区别，当都满了的时候他们会怎么做？
+    ->1.线程同步的安全性及性能
+      2.当Vector或ArrayList中的元素超过它的初始大小时,Vector会将它的容量翻倍,而ArrayList只增加50%的大小
+  ArrayList & LinkedList区别
+    ->ArrayList前面或者中间插入删除数据，后面数据都需要做后移或前进浪费时间，so，最后面增删和随机访问元素ArrayList好
+    ->链表的的查找是从一端沿着连接方向一个一个元素查找浪费时间，so,数据前面或中间增删以及按顺序访问元素，LinkedList好
+2.内部类和匿名内部类的区别？静态的匿名内部类和外部成员的访问关系？
+    ->内部类可复用，而匿名内部类是一次性的，一般在监听事件和线程中用到
+    ->一个static内部类可以使用外部类的名字访问。一个static类是不能访问外部类的非静态成员的(静态的不能访问非静态的，非静态可以访问静态的)
+3.switch case里面可传输变量类型（不同jdk版本）区别，long型可以吗？
+    ->long始终不可以，1.7之前String是不可以的，一般用枚举存储String
+4.线程同步，线程池的设计，策略？
+    同步并不是一起行动，而是协同，协助，配合，比如A和B配合完成，A执行到一定程度要依靠B的某个结果，那么停下叫B执行，B执行完成后将结果给A,A继续执行
+    在多线程里面，同步指的是线程
+Android:
+1.怎么把事件分发机制弄得不像背的，原理后一定要接实例
+    ->结合实例
+2.**新浪，凤凰，酷云都问过一个这样的问题：有没有那个地方，对你收获多的，成长点
+3.自定义控件怎么弄得有说服力
+    ->1. 怎样创建自定义控件, 继承View, ViewGroup, 已有的控件, 组合控件
+      2. 测量(onMeasure), 布局(onLayout), 绘制(onDraw, invalidate, canvas, paint)
+      3. 触摸事件(dispatchTouchEvent, onInterceptTouchEvent, onTouchEvent, invalidate)
+      4. 回调
+      5. ViewDragHelper, 自定义属性
+4.你的这个自定义控件的优化
+    ->复用类似于listView的复用
+
+
+V电影面试：
+1.看看RecycleView源码，LayoutManager,adapter关系（和ListView区别准备点高级货）
+
+2.设计模式，代理（一对一）和观察者设计模式（一对多），状态机
+    ->所有的register都是观察者
+3.自定义gradle,用gradle打多个包，多渠道打包->"gradle"，Android Studio发布项目到Jcenter
+4.DispatchDraw,里面的调用关系
+5.okHttp，retrofit，也可以实现Volley
+6.fragment生命周期，以及attach,distach,add,remove(慎用),hide,show ,replace(组合remove,add,hide,show)，回退栈无关联
+7.activtyA -> B -> A，永远这样跳转下去会不会oom，onSaveInstanceState
+8.遇到的困难，难点及解决方案。
+9.项目职责
+10.EventBus和BroadCastReceiver区别(消息通信汇总)
+    ->解耦
+    ->B 跨进程
+    ->Handler-Message适合同一组件中使用
+    ->接口的回调
+11.stick事件
+   ->内存序列化
+12.内存分析工具的哪些坑，leakcanary
+13.handler的内存泄漏问题
+    ->原因:mq->handler->activity(延迟消息)
+    ->解决，removeCallBack();static,外部类,弱引用
+
+

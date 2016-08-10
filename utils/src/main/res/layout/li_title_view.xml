@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guagua.live.lib.widget.ui.TitleView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigatebar"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/li_title_view_height"
+    android:background="#FFFFFFFF"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:id="@+id/title_button_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:contentDescription="@string/li_image_desc"
+        android:onClick="onLeftBtnClick"
+        android:paddingLeft="15dip"
+        android:paddingRight="25dip"
+        android:src="@drawable/li_btn_back" />
+
+    <ImageButton
+        android:id="@+id/title_button_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:contentDescription="@string/li_image_desc"
+        android:onClick="onRightBtnClick"
+        android:paddingLeft="20dip"
+        android:paddingRight="15dip"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingLeft="3dip"
+        android:paddingRight="3dip"
+        android:singleLine="true"
+        android:textColor="@color/P80_BLACK"
+        android:textSize="17sp" />
+
+    <FrameLayout
+        android:id="@+id/title_custom_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/P10_BLACK"
+        ></View>
+</com.guagua.live.lib.widget.ui.TitleView>

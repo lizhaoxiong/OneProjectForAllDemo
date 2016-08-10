@@ -1,0 +1,32 @@
+<resources>
+    <string name="li_app_name">聚范</string>
+	<string name="li_image_desc"></string>
+    <string name="li_progress_bar_default_text">加载中，请稍候(…, …)</string>
+    <string name="li_btn_ok">确定</string>
+    <string name="li_btn_cancel">取消</string>
+    <string name="li_dialog_default_text">温馨提示</string>
+    <string name="li_btn_confirm">确认</string>
+    <string name="li_room_goto_setting">设置3G网络只听声音</string>
+    <string name="li_room_continue_open">继续打开</string>
+    <string name="li_room_continue_play">继续播放</string>
+    <string name="li_room_video_all">看视频</string>
+    <string name="li_room_video_only_voice">仅音频</string>
+    <string name="li_room_not_exist">当前房间不存在，请进入其他房间</string>
+    <string name="li_room_login_error_repeat">您的账号已在别处登录，若不是您本人，请及时修改密码，若有疑问可咨询客服！</string>
+    <string name="li_room_live_play_end">直播已结束</string>
+    <string name="li_room_live_not_allow">与房间断开连接,请重新进入</string>
+   <!-- <string name="qiqi_room_login_error_unknown">登录房间失败</string>-->
+    <string name="li_your_ip_is_in_blacklist">您的IP地址被管理员列入房间黑名单，请重试。</string>
+    <string name="li_you_is_in_blacklist">您被管理员列入房间黑名单，请重试。</string>
+    <string name="li_room_need_pwd">该房间需要密码才可进入哦，快输入密码吧</string>
+    <string name="li_room_pwd_error">密码错误，请重新输入</string>
+    <string name="li_room_pwd_not_be_empty">密码不能为空</string>
+    <!--网络相关-->
+    <string name="li_no_network">请查看您的网络是否畅通！</string>
+    <!--私信相关-->
+    <string name="li_chat_input_hint">和大家说点什么吧...</string>
+    <!--搜索关注-->
+    <string name="li_search_attention_already">已关注</string>
+    <string name="li_search_attention_add">加关注</string>
+
+</resources>

@@ -1,0 +1,56 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="li_bottomWindowAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/li_dialog_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/li_dialog_bottom_out</item>
+    </style>
+
+    <style name="li_custom_title_theme" parent="android:Theme.Light">
+        <item name="android:windowTitleSize">@dimen/li_title_view_height</item>
+        <item name="android:windowTitleBackgroundStyle">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+     <style name="li_CustomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->  
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->  
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->  
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->  
+        <item name="android:windowBackground">@drawable/li_alpha</item><!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 模糊 -->
+    </style>
+	  <style name="li_AllScreenDialog" parent="li_CustomDialog">
+        <item name="android:windowIsFloating">false</item><!-- 是否浮现在activity之上 -->  
+    </style>
+    <style name="li_gAlertDialogTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@drawable/li_alpha</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:padding">0dip</item>
+    </style>
+
+    <style name="li_AlertAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/li_alert_enter</item>
+        <item name="android:windowExitAnimation">@anim/li_alert_exit</item>
+    </style>
+
+    <!--AnimLoadingDialog样式-->
+    <style name="li_AnimDialogLoading" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 模糊 -->
+    </style>
+    <style name="li_UIWidgetTheme" parent="li_custom_title_theme">
+    </style>
+</resources>

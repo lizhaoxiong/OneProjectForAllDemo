@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="li_window_background">#FFFFFF</drawable>
+    <color name="P10_BLACK">#19000000</color>
+    <color name="P20_BLACK">#33000000</color>
+    <color name="P30_BLACK">#4C000000</color>
+    <color name="P40_BLACK">#66000000</color>
+    <color name="P50_BLACK">#7F000000</color>
+    <color name="P60_BLACK">#99000000</color>
+    <color name="P70_BLACK">#B2000000</color>
+    <color name="P80_BLACK">#CC000000</color>
+    <color name="P90_BLACK">#E5000000</color>
+    <color name="P10_WHITE">#19FFFFFF</color>
+    <color name="P20_WHITE">#33FFFFFF</color>
+    <color name="P30_WHITE">#4CFFFFFF</color>
+    <color name="P40_WHITE">#66FFFFFF</color>
+    <color name="P50_WHITE">#7FFFFFFF</color>
+    <color name="P60_WHITE">#99FFFFFF</color>
+    <color name="P70_WHITE">#B2FFFFFF</color>
+    <color name="P80_WHITE">#CCFFFFFF</color>
+    <color name="P90_WHITE">#E5FFFFFF</color>
+
+
+</resources>
