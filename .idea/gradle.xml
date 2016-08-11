@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/mvc" />
             <option value="$PROJECT_DIR$/mvp" />
             <option value="$PROJECT_DIR$/mvvm" />
+            <option value="$PROJECT_DIR$/notificationListenerDemo" />
             <option value="$PROJECT_DIR$/rxjava" />
             <option value="$PROJECT_DIR$/test" />
             <option value="$PROJECT_DIR$/ui" />
@@ -30,6 +31,7 @@
             <option value="$PROJECT_DIR$/mvc" />
             <option value="$PROJECT_DIR$/mvp" />
             <option value="$PROJECT_DIR$/mvvm" />
+            <option value="$PROJECT_DIR$/notificationListenerDemo" />
             <option value="$PROJECT_DIR$/rxjava" />
             <option value="$PROJECT_DIR$/test" />
             <option value="$PROJECT_DIR$/ui" />

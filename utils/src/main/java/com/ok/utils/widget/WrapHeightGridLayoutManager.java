@@ -5,16 +5,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * <p>Copyright: Copyright (c) 2016</p>
- * <p/>
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @author 薛文超
- * @version 1.0.0
- * @description
- * @modify
- */
 public class WrapHeightGridLayoutManager extends GridLayoutManager {
     private RecyclerView.Adapter mAdapter;
 

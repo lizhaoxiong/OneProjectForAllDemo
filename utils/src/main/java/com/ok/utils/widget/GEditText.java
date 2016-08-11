@@ -14,14 +14,7 @@ import android.widget.EditText;
 import com.ok.utils.R;
 
 /**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description  自定义EditText,增加可以带右侧Clean图标功能
- * @author 薛文超
- * @modify
- * @version 1.0.0
+ * 自定义EditText,增加可以带右侧Clean图标功能
  */
 public class GEditText extends EditText {
 	private Drawable mRightDrawable;

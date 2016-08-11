@@ -20,15 +20,7 @@ import com.ok.utils.utils.log.LogUtils;
 
 
 /**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description  自定义AlertDialog
- *
- * @author 薛文超
- * @modify
- * @version 1.0.0
+ * 自定义AlertDialog
  */
 public class GAlertDialog extends Dialog implements View.OnClickListener {
 

@@ -9,17 +9,6 @@ import android.widget.TextView;
 
 import com.ok.utils.R;
 
-/**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description  自定义标题栏
- *
- * @author 薛文超
- * @modify
- * @version 1.0.0
- */
 public class TitleView extends RelativeLayout {
 	private ImageButton mImageButtonLeft;
 	private ImageButton mImageButtonRight;

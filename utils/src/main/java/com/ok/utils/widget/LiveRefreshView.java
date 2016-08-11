@@ -17,17 +17,7 @@ import android.view.animation.Transformation;
 
 import java.util.ArrayList;
 
-/**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description  自定义标题栏
- *
- * @author TPX
- * @modify
- * @version 1.0.0
- */
+
 public class LiveRefreshView extends BaseRefreshView implements Animatable {
 
     /** 动画间隔 */

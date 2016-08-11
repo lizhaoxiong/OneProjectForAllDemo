@@ -10,15 +10,8 @@ import android.widget.ListAdapter;
 import java.util.ArrayList;
 
 /**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description 列表Adapter基类
- *
- * @author 薛文超
- * @modify
- * @version 1.0.0
+ * 列表Adapter基类
+ * @param <T>
  */
 public abstract class ArrayListAdapter<T> extends BaseAdapter{
 	public ArrayList<T> mList;

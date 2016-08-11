@@ -14,14 +14,7 @@ import android.widget.Scroller;
 import java.lang.ref.WeakReference;
 
 /**
- * <p>Copyright: Copyright (c) 2016</p>
- *
- * <p>Company: 浙江齐聚科技有限公司<a href="www.guagua.cn">www.guagua.cn</a></p>
- *
- * @description 自定义的 ViewGroup，用于封装 DecorView 中的LinearLayout；可使  Activity 具有滑动关闭效果；
- * @author 薛文超
- * @modify
- * @version 1.0.0
+ * 自定义的 ViewGroup，用于封装 DecorView 中的LinearLayout；可使  Activity 具有滑动关闭效果；
  */
 public class GestureViewGroup extends ViewGroup {
 	private Context context;
