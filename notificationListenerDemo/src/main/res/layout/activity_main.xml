@@ -1,12 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <Button
         android:id="@+id/btnCreateNotify"
@@ -25,7 +23,7 @@
         android:layout_alignLeft="@+id/btnCreateNotify"
         android:layout_alignRight="@+id/btnCreateNotify"
         android:layout_below="@+id/btnCreateNotify"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnClearLastNotify"
@@ -70,7 +68,7 @@
         android:layout_alignLeft="@+id/btnEnableUnEnableNotify"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/btnEnableUnEnableNotify"
-        android:layout_below="@+id/btnEnableUnEnableNotify" >
+        android:layout_below="@+id/btnEnableUnEnableNotify">
 
         <TextView
             android:id="@+id/textView"
@@ -79,4 +77,11 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </ScrollView>
 
+    <Button
+        android:id="@+id/btnGotoSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="buttonOnClicked"
+        android:text="跳转到设置界面" />
 </RelativeLayout>

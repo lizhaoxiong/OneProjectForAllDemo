@@ -6,5 +6,20 @@
     android:orientation="vertical"
     tools:context="com.seven.notificationlistenerdemo.SettingActivity">
 
-    
+    <Button
+        android:id="@+id/bt_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开启所有拦截"
+        />
+    <Button
+        android:id="@+id/bt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关闭所有拦截"/>
+
+    <ListView
+        android:id="@+id/lv_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

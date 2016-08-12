@@ -41,6 +41,53 @@ public class NotificationMonitor extends NotificationListenerService {
         }
     };
 
+    /**
+     * 开关防打扰功能
+     *  1.当消息来时，判断防打扰功能是否开启
+     *      1.1 如果开启了，该消息的应用包名是否在已开启拦截包名的集合中
+     *          1.2 在，根据包名拦截，不在就不用管
+     *  2.what i should do?
+     *      2.1 包名的拦截的集合
+     *      2.2 根据包名如何拦截方法
+     *      2.3
+     * @param sbn
+     */
+    @Override
+    public void onNotificationPosted(StatusBarNotification sbn) {
+        cancelAllNotifications();//当消息来时，清除掉所有消息，就相当于防打扰开关
+        updateCurrentNotifications();
+        logNLS("onNotificationPosted...");
+        logNLS("have " + mCurrentNotificationsCounts + " active notifications");
+        mPostedNotification = sbn;
+
+        /*
+         * Bundle extras = sbn.getNotification().extras; String
+         * notificationTitle = extras.getString(Notification.EXTRA_TITLE);
+         * Bitmap notificationLargeIcon = ((Bitmap)
+         * extras.getParcelable(Notification.EXTRA_LARGE_ICON)); Bitmap
+         * notificationSmallIcon = ((Bitmap)
+         * extras.getParcelable(Notification.EXTRA_SMALL_ICON)); CharSequence
+         * notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
+         * CharSequence notificationSubText =
+         * extras.getCharSequence(Notification.EXTRA_SUB_TEXT);
+         * Log.i("SevenNLS", "notificationTitle:"+notificationTitle);
+         * Log.i("SevenNLS", "notificationText:"+notificationText);
+         * Log.i("SevenNLS", "notificationSubText:"+notificationSubText);
+         * Log.i("SevenNLS",
+         * "notificationLargeIcon is null:"+(notificationLargeIcon == null));
+         * Log.i("SevenNLS",
+         * "notificationSmallIcon is null:"+(notificationSmallIcon == null));
+         */
+    }
+
+    @Override
+    public void onNotificationRemoved(StatusBarNotification sbn) {
+        updateCurrentNotifications();
+        logNLS("removed...");
+        logNLS("have " + mCurrentNotificationsCounts + " active notifications");
+        mRemovedNotification = sbn;
+    }
+
     class CancelNotificationReceiver extends BroadcastReceiver {
 
         @Override
@@ -85,41 +132,6 @@ public class NotificationMonitor extends NotificationListenerService {
         // a.equals("b");
         logNLS("onBind...");
         return super.onBind(intent);
-    }
-
-    @Override
-    public void onNotificationPosted(StatusBarNotification sbn) {
-        updateCurrentNotifications();
-        logNLS("onNotificationPosted...");
-        logNLS("have " + mCurrentNotificationsCounts + " active notifications");
-        mPostedNotification = sbn;
-
-/*
-         * Bundle extras = sbn.getNotification().extras; String
-         * notificationTitle = extras.getString(Notification.EXTRA_TITLE);
-         * Bitmap notificationLargeIcon = ((Bitmap)
-         * extras.getParcelable(Notification.EXTRA_LARGE_ICON)); Bitmap
-         * notificationSmallIcon = ((Bitmap)
-         * extras.getParcelable(Notification.EXTRA_SMALL_ICON)); CharSequence
-         * notificationText = extras.getCharSequence(Notification.EXTRA_TEXT);
-         * CharSequence notificationSubText =
-         * extras.getCharSequence(Notification.EXTRA_SUB_TEXT);
-         * Log.i("SevenNLS", "notificationTitle:"+notificationTitle);
-         * Log.i("SevenNLS", "notificationText:"+notificationText);
-         * Log.i("SevenNLS", "notificationSubText:"+notificationSubText);
-         * Log.i("SevenNLS",
-         * "notificationLargeIcon is null:"+(notificationLargeIcon == null));
-         * Log.i("SevenNLS",
-         * "notificationSmallIcon is null:"+(notificationSmallIcon == null));
-*/
-    }
-
-    @Override
-    public void onNotificationRemoved(StatusBarNotification sbn) {
-        updateCurrentNotifications();
-        logNLS("removed...");
-        logNLS("have " + mCurrentNotificationsCounts + " active notifications");
-        mRemovedNotification = sbn;
     }
 
     private void updateCurrentNotifications() {

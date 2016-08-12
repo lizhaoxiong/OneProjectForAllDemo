@@ -123,6 +123,10 @@ public class MainActivity extends Activity {
                 logNLS("Enable/UnEnable notification...");
                 openNotificationAccess();
                 break;
+            case R.id.btnGotoSetting://跳转到设置界面
+                logNLS("Go to Setting");
+                startActivity(new Intent(this,SettingActivity.class));
+                break;
             default:
                 break;
         }
@@ -163,7 +167,7 @@ public class MainActivity extends Activity {
             ncBuilder.setAutoCancel(true);
             /*设置点击的跳转意图*/
             ncBuilder.setContentIntent(pendingIntent);
-        manager.notify((int)System.currentTimeMillis(),ncBuilder.build());
+        manager.notify(1,ncBuilder.build());//notification unique
     }
 
     /**
