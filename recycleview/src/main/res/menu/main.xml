@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/id_action_add"
+        android:title="@android:string/cut"
+        android:icon="@android:drawable/dark_header" />
+    <item
+        android:title="@android:string/defaultMsisdnAlphaTag"
+        android:id="@+id/id_action_delete"
+        android:icon="@android:drawable/ic_media_ff"/>
+</menu>
