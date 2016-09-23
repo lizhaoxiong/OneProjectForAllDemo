@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/DiyView/DiyView.iml" filepath="$PROJECT_DIR$/DiyView/DiyView.iml" />
       <module fileurl="file://$PROJECT_DIR$/OneProjectForAllDemo.iml" filepath="$PROJECT_DIR$/OneProjectForAllDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-library/library.iml" filepath="$PROJECT_DIR$/demo-library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-threadmgr/demo-threadmgr.iml" filepath="$PROJECT_DIR$/demo-threadmgr/demo-threadmgr.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-utils/utils.iml" filepath="$PROJECT_DIR$/demo-utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/design/design.iml" filepath="$PROJECT_DIR$/design/design.iml" />
       <module fileurl="file://$PROJECT_DIR$/image/image.iml" filepath="$PROJECT_DIR$/image/image.iml" />
