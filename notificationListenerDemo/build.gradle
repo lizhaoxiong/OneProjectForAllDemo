@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.example.notificationlistenerdemo"
         minSdkVersion 18
-        targetSdkVersion 19
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -20,4 +20,5 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
 }

@@ -7,10 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.seven.notificationlistenerdemo.MainActivity"
+            android:name="com.seven.notificationlistenerdemo.activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +25,14 @@
         </activity>
 
         <service
-            android:name="com.seven.notificationlistenerdemo.NotificationMonitor"
+            android:name="com.seven.notificationlistenerdemo.service.NotificationMonitor"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.seven.notificationlistenerdemo.SettingActivity"></activity>
+        <activity android:name="com.seven.notificationlistenerdemo.activity.SettingActivity"></activity>
     </application>
 
 </manifest>
