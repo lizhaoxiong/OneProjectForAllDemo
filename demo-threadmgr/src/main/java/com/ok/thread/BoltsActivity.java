@@ -17,9 +17,8 @@ import bolts.Task;
 
 /**
  * Created by lizhaoxiong on 2016/9/23.
- *
  */
-public class BoltsActivity extends Activity{
+public class BoltsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +30,7 @@ public class BoltsActivity extends Activity{
         createParallelTask();
         createSerialTask();
         createFaultedTask();
+
     }
 
     /**
@@ -41,6 +41,10 @@ public class BoltsActivity extends Activity{
         findViewById(R.id.btn_bolts_failed).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final Task<Integer>.TaskCompletionSource tcs = Task.create();
+                tcs.setCancelled();
+
                 Task.call(new Callable<String>() {
                     @Override
                     public String call() throws Exception {
@@ -51,31 +55,31 @@ public class BoltsActivity extends Activity{
 //                        }
                         return "Hello Bolts";
                     }
-                },Task.BACKGROUND_EXECUTOR).onSuccess(new Continuation<String, Void>() {
+                }, Task.BACKGROUND_EXECUTOR).onSuccess(new Continuation<String, Void>() {
                     @Override
                     public Void then(Task<String> task) throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" onSuccess");
+                        Logger.d(Thread.currentThread().getName() + " onSuccess");
                         return null;
                     }
-                },Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Void, Void>() {
+                }, Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Void, Void>() {
                     @Override
                     public Void then(Task<Void> task) throws Exception {
-                            if(task.isFaulted()){
-                                Logger.d(Thread.currentThread().getName()+" onError");
-                                return null;
-                            }
-                            if(task.isCompleted()){
-                                Logger.d(Thread.currentThread().getName()+" onCompleted");
-                                return null;
-                            }
-                            if(task.isCancelled()){
-                                Logger.d(Thread.currentThread().getName()+" onCancelled");
-                                return null;
-                            }
-                        Logger.d(Thread.currentThread().getName()+" done");
+                        if (task.isFaulted()) {
+                            Logger.d(Thread.currentThread().getName() + " onError");
+                            return null;
+                        }
+                        if (task.isCompleted()) {
+                            Logger.d(Thread.currentThread().getName() + " onCompleted");
+                            return null;
+                        }
+                        if (task.isCancelled()) {
+                            Logger.d(Thread.currentThread().getName() + " onCancelled");
+                            return null;
+                        }
+                        Logger.d(Thread.currentThread().getName() + " done");
                         return null;
                     }
-                },Task.UI_THREAD_EXECUTOR);
+                }, Task.UI_THREAD_EXECUTOR);
             }
         });
     }
@@ -92,22 +96,22 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        for(int i=0;i<50;i++){
-                            Logger.d(Thread.currentThread().getName()+" i="+i);
+                        for (int i = 0; i < 50; i++) {
+                            Logger.d(Thread.currentThread().getName() + " i=" + i);
                         }
                         return null;
                     }
-                },SERIAL_EXECUTOR);
+                }, SERIAL_EXECUTOR);
 
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        for(int i=50;i<100;i++){
-                            Logger.d(Thread.currentThread().getName()+" i="+i);
+                        for (int i = 50; i < 100; i++) {
+                            Logger.d(Thread.currentThread().getName() + " i=" + i);
                         }
                         return null;
                     }
-                },SERIAL_EXECUTOR);
+                }, SERIAL_EXECUTOR);
             }
         });
     }
@@ -124,26 +128,26 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        for(int i=0;i<100;i++){
-                            if(i%2==0){
-                                Logger.d(Thread.currentThread().getName()+" i="+i);
+                        for (int i = 0; i < 100; i++) {
+                            if (i % 2 == 0) {
+                                Logger.d(Thread.currentThread().getName() + " i=" + i);
                             }
                         }
                         return null;
                     }
-                },PARALLEL_EXECUTOR);
+                }, PARALLEL_EXECUTOR);
 
                 Task.call(new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        for(int i=0;i<100;i++){
-                            if(i%2==1){
-                                Logger.d(Thread.currentThread().getName()+" i="+i);
+                        for (int i = 0; i < 100; i++) {
+                            if (i % 2 == 1) {
+                                Logger.d(Thread.currentThread().getName() + " i=" + i);
                             }
                         }
                         return null;
                     }
-                },PARALLEL_EXECUTOR);
+                }, PARALLEL_EXECUTOR);
             }
         });
     }
@@ -158,18 +162,18 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" calling");
+                        Logger.d(Thread.currentThread().getName() + " calling");
                         return true;
                     }
-                },Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Boolean, List<Task<Void>>>() {
+                }, Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Boolean, List<Task<Void>>>() {
                     @Override
                     public List<Task<Void>> then(Task<Boolean> task) throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" tasks start");
+                        Logger.d(Thread.currentThread().getName() + " tasks start");
                         ArrayList<Task<Void>> tasks = new ArrayList<>();
                         tasks.add(asyncOperation1());
                         tasks.add(asyncOperation2());
                         Task.whenAll(tasks).waitForCompletion();
-                        Logger.d(Thread.currentThread().getName()+" tasks end");
+                        Logger.d(Thread.currentThread().getName() + " tasks end");
                         return null;
                     }
 
@@ -184,6 +188,7 @@ public class BoltsActivity extends Activity{
                             }
                         });
                     }
+
                     private Task<Void> asyncOperation2() {
                         return Task.callInBackground(new Callable<Void>() {
                             @Override
@@ -197,13 +202,13 @@ public class BoltsActivity extends Activity{
                     }
 
 
-                },Task.BACKGROUND_EXECUTOR).continueWith(new Continuation<List<Task<Void>>, Void>() {
+                }, Task.BACKGROUND_EXECUTOR).continueWith(new Continuation<List<Task<Void>>, Void>() {
                     @Override
                     public Void then(Task<List<Task<Void>>> task) throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" done");
+                        Logger.d(Thread.currentThread().getName() + " done");
                         return null;
                     }
-                },Task.UI_THREAD_EXECUTOR);
+                }, Task.UI_THREAD_EXECUTOR);
             }
         });
     }
@@ -218,23 +223,23 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        Logger.d(Thread.currentThread().getName() +" calling");
+                        Logger.d(Thread.currentThread().getName() + " calling");
                         return true;
                     }
-                },Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Boolean, String>() {
+                }, Task.UI_THREAD_EXECUTOR).continueWith(new Continuation<Boolean, String>() {
                     @Override
                     public String then(Task<Boolean> task) throws Exception {
                         Thread.sleep(2000);
-                        Logger.d(Thread.currentThread().getName() +" onSuccess?"+task.getResult());
+                        Logger.d(Thread.currentThread().getName() + " onSuccess?" + task.getResult());
                         return "hello bolts";
                     }
-                },Task.BACKGROUND_EXECUTOR).continueWith(new Continuation<String, Void>() {
+                }, Task.BACKGROUND_EXECUTOR).continueWith(new Continuation<String, Void>() {
                     @Override
                     public Void then(Task<String> task) throws Exception {
-                        Logger.d(Thread.currentThread().getName() +" "+task.getResult());
+                        Logger.d(Thread.currentThread().getName() + " " + task.getResult());
                         return null;
                     }
-                },Task.UI_THREAD_EXECUTOR);
+                }, Task.UI_THREAD_EXECUTOR);
             }
         });
     }
@@ -249,7 +254,7 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" "+"call in current thread");
+                        Logger.d(Thread.currentThread().getName() + " " + "call in current thread");
                         return true;
                     }
                 });
@@ -257,7 +262,7 @@ public class BoltsActivity extends Activity{
                 Task.callInBackground(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        Logger.d(Thread.currentThread().getName() +" "+ "call in background thread");
+                        Logger.d(Thread.currentThread().getName() + " " + "call in background thread");
                         return true;
                     }
                 });
@@ -265,15 +270,15 @@ public class BoltsActivity extends Activity{
                 Task.call(new Callable<Boolean>() {
                     @Override
                     public Boolean call() throws Exception {
-                        Logger.d(Thread.currentThread().getName()+" "+ "call in UI Thread");
+                        Logger.d(Thread.currentThread().getName() + " " + "call in UI Thread");
                         return true;
                     }
-                },Task.UI_THREAD_EXECUTOR);
+                }, Task.UI_THREAD_EXECUTOR);
 
                 Task.delay(2000).continueWith(new Continuation<Void, Void>() {
                     @Override
                     public Void then(Task<Void> task) throws Exception {
-                        Logger.d(Thread.currentThread().getName() +" "+ "call in main thread(after delay 2 seconds)");
+                        Logger.d(Thread.currentThread().getName() + " " + "call in main thread(after delay 2 seconds)");
                         return null;
                     }
                 });

@@ -4,11 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DiyView/DiyView.iml" filepath="$PROJECT_DIR$/DiyView/DiyView.iml" />
       <module fileurl="file://$PROJECT_DIR$/OneProjectForAllDemo.iml" filepath="$PROJECT_DIR$/OneProjectForAllDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo-library/library.iml" filepath="$PROJECT_DIR$/demo-library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-library/demo-library.iml" filepath="$PROJECT_DIR$/demo-library/demo-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-threadmgr/demo-threadmgr.iml" filepath="$PROJECT_DIR$/demo-threadmgr/demo-threadmgr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo-utils/utils.iml" filepath="$PROJECT_DIR$/demo-utils/utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-utils/demo-utils.iml" filepath="$PROJECT_DIR$/demo-utils/demo-utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/design/design.iml" filepath="$PROJECT_DIR$/design/design.iml" />
       <module fileurl="file://$PROJECT_DIR$/image/image.iml" filepath="$PROJECT_DIR$/image/image.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-library/library.iml" filepath="$PROJECT_DIR$/demo-library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvc/mvc.iml" filepath="$PROJECT_DIR$/mvc/mvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvvm/mvvm.iml" filepath="$PROJECT_DIR$/mvvm/mvvm.iml" />
@@ -17,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/rxjava/rxjava.iml" filepath="$PROJECT_DIR$/rxjava/rxjava.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-utils/utils.iml" filepath="$PROJECT_DIR$/demo-utils/utils.iml" />
     </modules>
   </component>
 </project>
